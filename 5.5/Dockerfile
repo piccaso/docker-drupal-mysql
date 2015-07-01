@@ -10,6 +10,10 @@ RUN rpmkeys --import http://repo.mysql.com/RPM-GPG-KEY-mysql \
   && yum install -y $PACKAGE_URL \
   && rm -rf /var/cache/yum/*
 
+# Customize configuration for Drupal
+RUN echo "!includedir /etc/mysql/conf.d/" >> /etc/my.cnf
+COPY drupal.cnf /etc/my.cnf.d/drupal.cnf
+
 VOLUME /var/lib/mysql
 
 COPY docker-entrypoint.sh /entrypoint.sh
@@ -17,4 +21,3 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 3306
 CMD ["mysqld"]
-
