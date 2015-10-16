@@ -12,7 +12,8 @@ RUN mkdir /docker-entrypoint-initdb.d
 RUN echo "!includedir /etc/my.cnf.d/" >> /etc/my.cnf
 COPY drupal.cnf /etc/my.cnf.d/drupal.cnf
 
-VOLUME /var/lib/mysql
+# Remiving volume to enable the "sanbox mode"
+#VOLUME /var/lib/mysql
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
